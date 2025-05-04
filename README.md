@@ -1,4 +1,4 @@
-# Spacetube
+# Spacetube Rocketchat
 
 This is a Rocketchat client plugin for Spacetube.
 
