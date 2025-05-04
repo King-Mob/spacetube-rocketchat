@@ -1,0 +1,22 @@
+{
+    "id": "c16853cf-c591-4453-b1dd-7def3e08cf02",
+    "version": "0.0.1",
+    "requiredApiVersion": "^1.44.0",
+    "iconFile": "icon.png",
+    "author": {
+        "name": "John Evans",
+        "homepage": "spacetu.be",
+        "support": "spacetu.be"
+    },
+    "name": "spacetube",
+    "nameSlug": "spacetube",
+    "classFile": "SpacetubeApp.ts",
+    "description": "rocketchat client plugin for spacetube",
+    "implements": [],
+    "api": {
+        "external": {
+            "enabled": true,
+            "path": "forward"
+        }
+    }
+}
