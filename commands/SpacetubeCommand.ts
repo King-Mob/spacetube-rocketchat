@@ -9,16 +9,30 @@ import {
     SlashCommandContext,
 } from "@rocket.chat/apps-engine/definition/slashcommands";
 
-export async function forward(context) {
-    fetch("https://spacetube.spacetu.be/rocketchat/event", {
-        method: "POST",
-        body: JSON.stringify({
-            ...context,
-        }),
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
+export async function forward(context, modify) {
+    const forwardResponse = await fetch(
+        "https://spacetube.spacetu.be/rocketchat/event",
+        {
+            method: "POST",
+            body: JSON.stringify({
+                ...context,
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+    );
+    const forwardResult = await forwardResponse.json();
+
+    if (forwardResult.success === false) {
+        if (forwardResult.registration === false) {
+            sendMessage(
+                context,
+                modify,
+                "No registration found for this server. Need to send the url under Administration → Marketplace → Private Apps → Spacetube app info → Details → APIs → POST forward"
+            );
+        }
+    }
 }
 
 async function register(url) {
@@ -70,7 +84,7 @@ export class SpacetubeCommand implements ISlashCommand {
         if (params.includes("c16853cf-c591-4453-b1dd-7def3e08cf02")) {
             register(params);
         } else {
-            forward(context);
+            forward(context, modify);
         }
 
         sendMessage(context, modify, `/spacetube ${params}`);
